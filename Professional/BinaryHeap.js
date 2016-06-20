@@ -1,10 +1,16 @@
 // 数据结构（最小堆）
 var BinaryHeap = {
 
+    BinaryHeap : function(scoreFunction)
+    {
+        this.content = [];
+        this.scoreFunction = scoreFunction;
+    },
+
     // 加入到数组的后面，也就是树的叶节点
     Push : function(element) {
         // 在数组后面加入
-        this.content.Push(element);
+        this.content.push(element);
         this.SinkDown(this.content.length - 1);
     },
 
@@ -35,7 +41,7 @@ var BinaryHeap = {
         if (i !== this.content.length - 1) {
             this[i] = end;
             // 判断删除的节点的值和数组最后的元素
-            if (this.scoreFunction(end) < scoreFunction(node)) {
+            if (this.scoreFunction(end) < this.scoreFunction(element)) {
                 this.SinkDown(i);
             }
             else {
@@ -54,7 +60,7 @@ var BinaryHeap = {
         // 计算子节点的位置
         var length = this.content.length;
         var element = this[n];
-        var elemScore = this.scoreEFunction(element);
+        var elemScore = this.scoreFunction(element);
 
         while(1) {
             var child2N = (n + 1)<<1;
